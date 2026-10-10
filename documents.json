@@ -1,11 +1,61 @@
 [
   {
-    "name": "example",
-    "title": "TODO(author): the first document this industry must produce",
-    "for_each": "select gen_random_uuid() as id, 'Example' as name",
+    "name": "decision-brief",
+    "title": "Application decision brief",
+    "for_each": "select id,reference as name from portfolio.applications where lifecycle<>'retired' order by reference",
     "file": "name",
     "sections": [
-      { "title": "Details", "sql": "select 'replace me' as item, $1::text as record_id" }
+      {
+        "title": "Application",
+        "sql": "select reference,name,owner,capability,lifecycle,annual_cost,currency,support_end,renewal_on,version from portfolio.applications where id=$1"
+      },
+      {
+        "title": "Consumers to consult",
+        "sql": "select a.reference,a.name,a.owner,d.kind,d.evidence from portfolio.dependencies d join portfolio.applications a on a.id=d.consumer_id where d.provider_id=$1 and d.status='active' and a.lifecycle<>'retired'"
+      },
+      {
+        "title": "Decisions and evidence",
+        "note": "Internal record only. This document does not stop a service or cancel a subscription.",
+        "sql": "select action,status,rationale,evidence,due_on,approved_by from portfolio.decisions where application_id=$1 order by created_at"
+      }
+    ]
+  },
+  {
+    "name": "evidence-review",
+    "title": "Application evidence review",
+    "for_each": "select id,reference as name from portfolio.applications where personal_data is distinct from false order by reference",
+    "file": "name",
+    "sections": [
+      {
+        "title": "Recorded classification",
+        "sql": "select reference,name,owner,personal_data,lifecycle from portfolio.applications where id=$1"
+      },
+      {
+        "title": "Evidence supplied by the operator",
+        "sql": "select kind,evidence,reviewed_on,review_due,actor from portfolio.controls where application_id=$1 order by kind"
+      },
+      {
+        "title": "Items to review",
+        "note": "NZ privacy Principles 5 and 9 and AU APP 11 guide these evidence prompts. They do not certify legal compliance.",
+        "sql": "select c.kind,c.rule,c.finding,c.review_due from portfolio.compliance c join portfolio.applications a on a.reference=c.reference where a.id=$1"
+      }
+    ]
+  },
+  {
+    "name": "renewal-brief",
+    "title": "Application renewal brief",
+    "for_each": "select id,reference as name from portfolio.applications where lifecycle<>'retired' and renewal_on is not null order by reference",
+    "file": "name",
+    "sections": [
+      {
+        "title": "Renewal record",
+        "sql": "select reference,name,owner,renewal_on,annual_cost,currency from portfolio.applications where id=$1"
+      },
+      {
+        "title": "Review decisions",
+        "note": "The renewal date is not a cancellation deadline. Consult the signed terms.",
+        "sql": "select action,status,rationale,evidence,due_on from portfolio.decisions where application_id=$1 order by due_on"
+      }
     ]
   }
 ]

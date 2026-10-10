@@ -1,115 +1,97 @@
-<h1 align="center">Application Portfolio for Claude Code</h1>
+# Application Portfolio for Claude Code
 
-<p align="center">
-  <strong>The open-source application portfolio that is just a database and Claude Code.</strong>
-</p>
+Know which applications to renew, replace or retire before a forgotten dependency stops the business. Your application inventory, ownership, costs and decisions live in a database you own.
 
-<p align="center">
-  Created by <a href="https://www.enterprisedna.co"><strong>Enterprise DNA</strong></a>. Free and open source. Works with Claude Code, Codex, OpenCode or Cursor.
-</p>
+| Do it yourself | We customise it | We run it for you |
+|---|---|---|
+| Free, MIT licensed. Install and test the fictional portfolio. | Your application fields, review rules, Ardoq mappings and business views. | Installed and operated through Omni by Enterprise DNA. One setup fee, then a retainer. |
+| [Quick start](#quick-start) | [Get your version built](https://enterprisedna.co/omni/book/?offer=replace-software&utm_campaign=ardoq&utm_source=github&utm_medium=customise) | [Book a call](https://enterprisedna.co/omni/book/?offer=replace-software&utm_campaign=ardoq&utm_source=github&utm_medium=managed) |
 
-<!-- three-doors -->
-<table align="center">
-  <tr>
-    <td align="center"><strong>Do it yourself</strong><br/>Clone it, run it, own it. Free, MIT.<br/><a href="#quick-start">Quick start</a></td>
-    <td align="center"><strong>We customise it</strong><br/>Your fields, your rules, your Ardoq data brought across.<br/><a href="https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=ardoq">Book a call</a></td>
-    <td align="center"><strong>We run it for you</strong><br/>Installed, connected and operated inside Omni. Setup fee, then a retainer.<br/><a href="https://enterprisedna.co/omni/instead-of/ardoq?utm_source=github&utm_medium=readme&utm_campaign=ardoq">How it works</a></td>
-  </tr>
-</table>
-
-<p align="center">
-  <a href="#what-is-this">What is this</a> &bull;
-  <a href="#why-no-front-end">Why no front end</a> &bull;
-  <a href="#quick-start">Quick start</a> &bull;
-  <a href="#the-commands">Commands</a> &bull;
-  <a href="#instead-of-ardoq">Instead of Ardoq</a> &bull;
-  <a href="#want-it-installed-and-run-for-you">Installed for you</a> &bull;
-  <a href="#license">License</a>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Node-20+-339933?style=flat-square" alt="Node 20+" />
-  <img src="https://img.shields.io/badge/PostgreSQL-any-336791?style=flat-square" alt="PostgreSQL" />
-  <img src="https://img.shields.io/badge/PGlite-embedded-3ecf8e?style=flat-square" alt="PGlite" />
-  <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" alt="MIT License" />
-</p>
-
----
-
-## What is this
-
-Application Portfolio for Claude Code does the job you pay Ardoq for, as a Postgres database and a set of agent commands. There is no web front end. You open the folder in [Claude Code](https://claude.com/claude-code) (or Codex, OpenCode, Cursor: see `AGENTS.md`) and ask for what you want in plain language. It runs the right query, and it can answer questions the Ardoq dashboard cannot.
-
-<!-- TODO(author): the annual bill. One sentence: what a 10 to 50 person business typically pays Ardoq per year, all in, with a source. -->
-
-Want the same thing with a web front end, or built on a different stack? That is a customisation, and it is exactly what Enterprise DNA does: [book a call](https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=ardoq).
-
-<!-- TODO(author): two or three sentences on what this specific product covers and who it is for. -->
-
-## Why no front end
-
-- The front end was only ever there because the database was hard to talk to. That is no longer true.
-- Your data sits in plain Postgres tables you own. Any tool can read them. No export, no lock-in.
-- No seats, no tiers, no add-ons. Read [docs/why-no-front-end.md](docs/why-no-front-end.md) for the honest trade-offs too.
+For the owner or technology lead who reviews application spend and the people, services and data affected by a change. Works with Claude Code, Codex, OpenCode or Cursor. Ardoq is an enterprise architecture platform with a wider modelling and collaboration scope. This base covers application portfolio operations. See [scope and research](docs/research.md).
 
 ## Quick start
 
-Sixty seconds, no database install (an embedded Postgres runs inside Node):
+Node 20 or later on Windows or Linux:
 
 ```bash
 git clone https://github.com/Enterprise-DNA-OS/application-portfolio-for-claude-code.git
 cd application-portfolio-for-claude-code
 npm install
 npm run demo
+npm test
+npm run view
+npm run docs
 ```
 
-Then open the folder in Claude Code and type a slash command. <!-- TODO(author): name the first command to try. -->
+The demo uses fictional Harbour records and dates relative to the first seed. It includes expired support, a missed renewal, a retired archive with missing privacy evidence, two applications serving the same capability and a three-step dependency chain. Repeated seeds preserve changes.
 
-### Use it with your own Postgres or Supabase
+Local PGlite stores records in `.data/db`. No server is needed. `DATABASE_URL` selects Postgres 15 or later. Local operation permits one process at a time. Use a separate `DATA_DIR`, migrate without seeding, and read the [replacement guide](docs/replace-ardoq.md) before importing business records.
 
-Copy `.env.example` to `.env`, set `DATABASE_URL`, then `npm run migrate`. Same commands, shared data, no per-seat fee.
+## The five weekly jobs
 
-## The commands
+1. `/review-queue`: assign missing owners and review dates.
+2. `/dependency-review`: verify stale connections before planning changes.
+3. `/lifecycle-risks`: find unsupported applications and their consumers.
+4. `/renewals-due`: decide what to retain before renewal dates arrive.
+5. `/weekly-review`: bring decisions, evidence and deadlines into one meeting.
 
-<!-- TODO(author): a table of the slash commands in .claude/commands and what each one does. -->
+There are 31 CLI commands and 32 slash recipes. Every CLI command supports `--json`. Run `npm run portfolio -- help` for the option list, or read [the command guide](docs/cli.md). Names match without case and IDs accept unique prefixes. Ambiguous matches list candidates and exit 1.
 
-| Command | What it does |
+## Ten questions for your application review
+
+Ardoq has configurable reporting, dependency analysis and its own agent connection. These are ten questions this free base answers today, not claims that Ardoq cannot produce the same analysis.
+
+| Question | Command |
 |---|---|
-| `/...` | ... |
+| Which applications lack an owner or a current review? | `review-queue` |
+| Which support deadlines arrive within ninety days, including missed dates? | `lifecycle-risks` |
+| What would be affected indirectly if Harbour orders stopped? | `impact --app=APP-01` |
+| Which recorded connections have not been verified for ninety days? | `dependency-review` |
+| Which application renewals are due within ninety days or already late? | `renewals-due` |
+| Where do two active applications serve the same capability? | `duplicates` |
+| What is the recorded annual cost by capability and currency? | `costs` |
+| Which application costs are still unknown? | `costs` |
+| Which proposed decisions became stale after a record changed? | `decisions` |
+| Which retired applications still need a personal-information evidence review? | `compliance` |
 
-## Instead of ardoq
+Overlap identifies a review candidate, not wasted spend. An unknown cost is not zero. Currencies are never totalled together. Renewal dates do not imply a cancellation notice deadline. Impact follows recorded active dependencies, including noncritical connections, and cannot discover missing connections.
 
-<!-- TODO(author): how to bring data across from Ardoq; link docs/replace-ardoq.md -->
+## Your first hour: ten things to ask for
 
-## Architecture
+1. Put our name and colours on the review documents.
+2. Show missing owners and review dates.
+3. Follow every downstream dependency of an application.
+4. Separate NZD and AUD costs and keep missing costs visible.
+5. Find overlapping applications before our next renewal meeting.
+6. Draft a decision brief for the oldest unsupported application.
+7. Show the personal-information evidence still needed for retired systems.
+8. Test our Ardoq export without saving changes.
+9. Add a business-unit field with a migration through `/customise`.
+10. Add a read-only view for our monthly architecture meeting through `/new-view`.
 
+## Import Ardoq
+
+```bash
+npm run portfolio -- import ardoq --file=applications.json --actor="Migration operator" --dry-run
+npm run portfolio -- import ardoq --file=applications.json --actor="Migration operator"
 ```
-application-portfolio-for-claude-code/
-  CLAUDE.md                 how the operator wants this run (routing table + house rules)
-  AGENTS.md                 the same, for Codex / OpenCode / Cursor / Gemini CLI
-  .claude/commands/         the slash commands
-  scripts/                  the CLI the commands drive
-  scripts/lib/db.mjs        one adapter: DATABASE_URL (pg) or embedded PGlite
-  supabase/migrations/      plain SQL schema
-  supabase/seed.sql         demo data
-  docs/                     the thesis and the migration guide
-```
 
-## Built for coding agents
+The importer accepts application components from Ardoq JSON exports, with explicit mappings for custom export headings, or a CSV saved from its Excel report. Export only application records. The synthetic fixture uses the vendor's documented component IDs and names; it is not a captured customer export. Original fields are preserved. Changed repeats and duplicate IDs are rejected atomically. Imported applications start planned and require ownership, capability and personal-information classification before review activates them.
 
-The database, CLI and command recipes work with Claude Code, Codex, OpenCode or Cursor. Ask your coding agent for a new command and have it implement and test the change against the same records.
+Relationships, permissions, surveys, attachments and decision history require a separate reconciliation. This is a one-command application-register import, not a complete account migration. [Exact mappings, exclusions and switch checks](docs/replace-ardoq.md).
 
-## Contributing
+## Evidence, decisions and paperwork
 
-Issues and pull requests are welcome. Keep the shape: plain SQL, a small CLI, a slash command per recurring job, no front end.
+`npm run docs` creates application decision briefs, evidence reviews and renewal briefs as branded HTML. `npm run view` produces two read-only snapshots for weekly reviews and rationalisation. Change `brand.json` once to set your name, logo and colours. Output is local, ignored by Git, and can be printed to PDF.
 
-## Want it installed and run for you?
+An approved retirement decision becomes stale when the application or its connections change. Retirement is blocked while live consumers remain or personal-information evidence reviews are missing or overdue. Recording retirement updates the register only. It never shuts down a service, cancels a contract or deletes data.
 
-Enterprise DNA installs Application Portfolio for Claude Code for your business, migrates your Ardoq data, connects it to the rest of your tools, and runs it for you as part of **Omni**, our managed Command Center. One setup fee, then a monthly retainer.
+[Compliance](docs/compliance.md) documents NZ privacy Principles 5 and 9, AU APP 11 and the local review policies. Evidence references are operator assertions, not inspected documents or certification. Shared deployments require authenticated operators, restricted access and tested backups. See [why there is no front end](docs/why-no-front-end.md).
 
-- Book a call: [enterprisedna.co/omni/book](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=ardoq)
-- Read more: [enterprisedna.co/omni/instead-of/ardoq](https://enterprisedna.co/omni/instead-of/ardoq?utm_source=github&utm_medium=readme&utm_campaign=ardoq)
+## Verification
 
-## License
+`npm test` uses a temporary database and exercises all commands, repeated seeds and migrations, JSON and CSV import rollback, custom field mappings, unknown values, currency separation, dependency cycles, stale approvals, retirement guards, drafts, full exports and escaped HTML. The same suite can use a fresh disposable Postgres database through `TEST_DATABASE_URL`. GitHub checks are configured for Linux, Windows and Postgres.
 
-MIT. Copyright (c) 2026 Enterprise DNA.
+The six exported record sets preserve application records, relationships, decisions, controls, activity and import batches. Back up the database and referenced evidence files separately. The export is an interchange snapshot, not an automatic restore command.
+
+MIT licence. Not affiliated with Ardoq or Anthropic. Hosting and agent use have separate costs. [Book 30 minutes with Sam](https://enterprisedna.co/omni/book/?offer=replace-software&utm_campaign=ardoq&utm_source=github&utm_medium=readme).

@@ -1,43 +1,52 @@
 # Application Portfolio for Claude Code: operating instructions
 
-This file is the brain. Claude Code reads it at the start of every session. It says who this is for, how work gets done, and the one right way to do each recurring job.
+For the owner or technology lead reviewing software ownership, support, renewals and dependencies. Configure the business identity in brand.json. Harbour data is fictional.
 
-## Who this is for
+Every answer starts with current CLI data. Read a full application and its dependencies before changing it. Unknown costs and classifications stay unknown. Match records by reference or a unique name or ID prefix; list ambiguous candidates and stop the change.
 
-- **Business:** [YOUR BUSINESS]
-- **Operator:** [YOUR NAME], [your role]
-- **What matters most:** [the one or two outcomes you care about]
+Never send, cancel a subscription, shut down a service or delete data. Drafts are internal review documents. Retirement changes the register only. Evidence references and operator names are assertions, not verified documents or authenticated signatures. Read docs/compliance.md before explaining any evidence check.
 
-Fill this in once. A worker with context knows. A worker without it guesses.
+## One route for each job
 
-## How to work
-
-1. **Take a brief, not a script.** The operator describes the outcome. You run the right command and present the answer.
-2. **Read before you write.** Before drafting anything about a record, read its full history first.
-3. **Plain language.** Short sentences. No filler. Numbers in tables.
-4. **Silent success, loud problems.** No play-by-play. Say what broke and what you did about it.
-5. **Stop at the line.** Anything that sends, deletes, or faces a customer waits for a yes in this session.
-
-## Routing table: one right way for each recurring job
-
-| When the operator asks for... | Use this |
+| Job | Recipe |
 |---|---|
-| <!-- TODO(author): one row per slash command --> | `/...` |
+| applications | /applications |
+| application | /application |
+| review queue | /review-queue |
+| renewals due | /renewals-due |
+| lifecycle risks | /lifecycle-risks |
+| costs | /costs |
+| duplicates | /duplicates |
+| owner workload | /owner-workload |
+| dependency review | /dependency-review |
+| compliance | /compliance |
+| attention | /attention |
+| dependencies | /dependencies |
+| impact | /impact |
+| decisions | /decisions |
+| activity | /activity |
+| weekly review | /weekly-review |
+| add application | /add-application |
+| set application | /set-application |
+| review | /review |
+| add dependency | /add-dependency |
+| remove dependency | /remove-dependency |
+| verify dependency | /verify-dependency |
+| attest control | /attest-control |
+| propose decision | /propose-decision |
+| approve decision | /approve-decision |
+| record retirement | /record-retirement |
+| log | /log |
+| draft decision | /draft-decision |
+| import | /import |
+| export | /export |
+| customise | /customise |
+| new view | /new-view |
 
-If an ask fits nothing here, run the CLI directly (`npm run <cli> -- --help`) and then propose a new command for it.
+Run npm run portfolio -- help for options. Every command accepts --json. Recipes live only in .claude/commands. Use the same database and commands from Claude Code, Codex, OpenCode or Cursor.
 
-## Hard rules
+Migrations and fictional seeds live in supabase/. scripts/portfolio.mjs is the one CLI. brand.json, views.json and documents.json define read-only review outputs. drafts/, views/, docs-out/, exports/ and imports/ contain private output and stay out of Git. fixtures/ contains synthetic examples only.
 
-- Never send email or messages from here. Draft to `drafts/`, a person sends.
-- Never delete records without an explicit yes in this session. Prefer marking closed or archived.
-- Never invent a record. If a name is ambiguous, list the candidates and ask.
-- The database is the source of truth. If the answer is not in it, say so.
+Use one process at a time for local PGlite. DATABASE_URL selects Postgres with verified TLS. The portfolio schema is private and has no public row policies. Shared operation needs authenticated users, restricted permissions and tested backups. Do not expose an owner database connection as a public API.
 
-## Where things live
-
-- `scripts/` the CLI. `scripts/lib/db.mjs` picks `DATABASE_URL` (Postgres, Supabase) or the embedded database in `.data/`.
-- `supabase/migrations/` the schema, plain SQL. `npm run migrate` applies it.
-- `.claude/commands/` the slash commands. Add one every time the same ask comes twice.
-- `docs/` the thesis and the guide for moving off Ardoq.
-
-Built by Enterprise DNA. Installed and run for you as part of Omni: https://enterprisedna.co/omni/instead-of/ardoq
+Omni by Enterprise DNA installs and runs your version: https://enterprisedna.co/omni/book/?offer=replace-software&utm_campaign=ardoq&utm_medium=instructions

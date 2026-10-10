@@ -1,0 +1,24 @@
+{
+  "captured": "2026-10-10T22:15:59.153Z",
+  "fictional": true,
+  "screens": [
+    {
+      "title": "Support deadlines and their consumers",
+      "ask": "Which applications are near or past the end of support?",
+      "command": "npm run portfolio -- lifecycle-risks",
+      "output": "reference  name            owner  support_end  days_left  dependent_apps\n---------  --------------  -----  -----------  ---------  --------------\nAPP-01     Harbour orders  Aroha  2026-09-25   -15        1             \nAPP-03     Legacy orders          2026-10-30   20         1"
+    },
+    {
+      "title": "The knock-on effect of one change",
+      "ask": "What would be affected if Harbour orders stopped?",
+      "command": "npm run portfolio -- impact --app=APP-01",
+      "output": "reference  name              owner  hops\n---------  ----------------  -----  ----\nAPP-02     Harbour dispatch  Ben    1   \nAPP-04     Supplier portal   Aroha  2"
+    },
+    {
+      "title": "Missing and overdue evidence reviews",
+      "ask": "Which application records need a security or retention review?",
+      "command": "npm run portfolio -- compliance",
+      "output": "reference  name               kind       rule                finding                  review_due\n---------  -----------------  ---------  ------------------  -----------------------  ----------\nAPP-01     Harbour orders     security   NZ-IPP5 / AU-APP11  Evidence review overdue  2026-09-30\nAPP-01     Harbour orders     retention  NZ-IPP9 / AU-APP11  Missing evidence review            \nAPP-03     Legacy orders      security   NZ-IPP5 / AU-APP11  Missing evidence review            \nAPP-03     Legacy orders      retention  NZ-IPP9 / AU-APP11  Missing evidence review            \nAPP-05     Analytics archive  retention  NZ-IPP9 / AU-APP11  Missing evidence review            \nAPP-05     Analytics archive  security   NZ-IPP5 / AU-APP11  Missing evidence review"
+    }
+  ]
+}

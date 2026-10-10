@@ -1,13 +1,45 @@
 [
   {
     "name": "week",
-    "title": "This week",
-    "subtitle": "Application Portfolio for Claude Code: what needs attention, rendered by npm run view",
+    "title": "Application portfolio week",
+    "subtitle": "Fictional demo until replaced with verified business records",
     "sections": [
       {
-        "title": "Needs attention",
-        "note": "TODO(author): point this at the industry's attention view (overdue, stuck, quiet).",
-        "sql": "select 'replace me' as item, 'TODO(author)' as why"
+        "title": "Reviews and ownership",
+        "sql": "select * from portfolio.review_queue order by reference"
+      },
+      {
+        "title": "Support deadlines",
+        "sql": "select * from portfolio.lifecycle_risks order by days_left"
+      },
+      {
+        "title": "Renewal decisions",
+        "sql": "select * from portfolio.renewals order by days_left"
+      },
+      {
+        "title": "Evidence reviews",
+        "note": "Record checks only. A missing review is not a legal finding.",
+        "sql": "select * from portfolio.compliance order by reference,kind"
+      }
+    ]
+  },
+  {
+    "name": "rationalisation",
+    "title": "Application rationalisation",
+    "sections": [
+      {
+        "title": "Capability overlap",
+        "note": "Overlap is a review candidate, not proven waste.",
+        "sql": "select * from portfolio.duplicates order by capability"
+      },
+      {
+        "title": "Annual cost by currency",
+        "note": "Unknown costs remain unknown. Different currencies are never added.",
+        "sql": "select * from portfolio.costs order by capability,currency"
+      },
+      {
+        "title": "Dependency evidence",
+        "sql": "select * from portfolio.dependency_review order by age_days desc"
       }
     ]
   }

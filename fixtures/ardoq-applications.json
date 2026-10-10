@@ -1,0 +1,4 @@
+[
+ {"_id":"synthetic-101","name":"Harbour reporting","Owner":"Moana","Capability":"Reporting","Annual Cost":"1250.50","Currency":"NZD","Personal Data":"true","Support End":"2027-12-31","Renewal Date":"2027-01-31","description":"Synthetic component shaped from the vendor API example, not a customer export"},
+ {"_id":"synthetic-102","name":"Warehouse \"planning\"","Owner":"Chen","Capability":"Planning","description":"Other custom fields remain in the preserved original record"}
+]
